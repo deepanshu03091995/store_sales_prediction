@@ -1,2 +1,11 @@
-pymongo==4.2.0
+pymongo[srv]==4.2.0
+notebook
+dill
+pandas
+numpy
+matplotlib
+seaborn
+from_root
+python-dotenv
+
 -e .
