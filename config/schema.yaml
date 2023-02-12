@@ -4,13 +4,13 @@ columns:
     - Item_Weight: float,
     - Item_Fat_Content: str,
     - Item_Visibility: float,
-    - Item_Type: str,
+    - Item_Type: category,
     - Item_MRP: float,
-    - Outlet_Identifier: str,
+    - Outlet_Identifier: category,
     - Outlet_Establishment_Year: int,
-    - Outlet_Size: str,
-    - Outlet_Location_Type: str,
-    - Outlet_Type: str,
+    - Outlet_Size: category,
+    - Outlet_Location_Type: category,
+    - Outlet_Type: category,
 
 drop_columns:
     - Item_Identifier

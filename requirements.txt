@@ -7,5 +7,7 @@ matplotlib
 seaborn
 from_root
 python-dotenv
+scipy
+scikit-learn
 
 -e .
