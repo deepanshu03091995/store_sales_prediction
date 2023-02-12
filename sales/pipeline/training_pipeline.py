@@ -1,10 +1,15 @@
-from sales.entity.config_entity import TrainingPipelineConfig, DataIngestionConfig
-from sales.entity.artifact_entity import DataIngestionArtifact
+from sales.entity.config_entity import (
+    TrainingPipelineConfig,
+    DataIngestionConfig,
+    DataValidationConfig,
+)
+from sales.entity.artifact_entity import DataIngestionArtifact, DataValidationArtifact
 
 from sales.exception import SalesException
 import sys, os
 from sales.logger import logging
 from sales.components.data_ingestion import DataIngestion
+from sales.components.data_validation import DataValidation
 
 
 class TrainPipeline:
@@ -31,12 +36,57 @@ class TrainPipeline:
         except Exception as e:
             raise SalesException(e, sys)
 
-    def run_pipeline(self):
-        TrainPipeline.is_pipeline_running = True
-
+    def start_data_validation(
+        self, data_ingestion_artifact: DataIngestionArtifact
+    ) -> DataValidationArtifact:
         try:
-            data_ingestion_artifact: DataIngestionArtifact = self.start_data_ingestion()
+
+            data_validation_config = DataValidationConfig(
+                training_pipeline_config=self.training_pipeline_config
+            )
+            data_validation = DataValidation(
+                data_ingestion_artifact=data_ingestion_artifact,
+                data_validation_config=data_validation_config,
+            )
+            data_validation_artifact = data_validation.initiate_data_validation()
+            return data_validation_artifact
 
         except Exception as e:
-            TrainPipeline.is_pipeline_running = False
+            raise SalesException(e, sys)
+
+    """
+    # def start_data_transformation(self):
+    #     try:
+    #         pass
+    #     except Exception as e:
+    #         raise SalesException(e,sys)
+        
+    # def start_model_trainer(self):
+    #     try:
+    #         pass
+    #     except Exception as e:
+    #         raise SalesException(e,sys)
+        
+        
+    # def start_model_evaluation(self):
+    #     try:
+    #         pass
+    #     except Exception as e:
+
+    
+    # def start_model_pusher(self):
+    #     try:
+    #         pass
+    #     except Exception as e:
+    #         raise SalesException(e,sys)    
+    
+    """
+
+    def run_pipeline(self):
+        try:
+            data_ingestion_artifact: DataIngestionArtifact = self.start_data_ingestion()
+            data_validation_artifact = self.start_data_validation(
+                data_ingestion_artifact=data_ingestion_artifact
+            )
+        except Exception as e:
             raise SalesException(e, sys)

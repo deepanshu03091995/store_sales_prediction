@@ -4,6 +4,8 @@ from sales.entity.config_entity import DataIngestionConfig
 from sales.entity.artifact_entity import DataIngestionArtifact
 import os, sys
 from pandas import DataFrame
+from sklearn.model_selection import train_test_split
+
 from sales.constant.training_pipeline import TARGET_COLUMNS
 from sales.data_access.sales_data import SalesData
 from sales.utils.main_utils import read_yaml_file
@@ -45,8 +47,9 @@ class DataIngestion:
         """
 
         try:
-            train_set = dataframe[dataframe[TARGET_COLUMNS].notnull()]
-            test_set = dataframe[dataframe[TARGET_COLUMNS].isnull()]
+            train_set, test_set = train_test_split(
+                dataframe, test_size=self.data_ingestion_config.train_test_split_ratio
+            )
             logging.info("Performed train test split on the dataframe")
 
             logging.info(
@@ -74,7 +77,7 @@ class DataIngestion:
     def initiate_data_ingestion(self) -> DataIngestionArtifact:
         try:
             dataframe = self.export_data_into_feature_store()
-            dataframe = dataframe.drop(self._schema_config["drop_columns"], axis=1)
+
             
             self.split_data_as_train_test(dataframe=dataframe)
             data_ingestion_artifact = DataIngestionArtifact(
