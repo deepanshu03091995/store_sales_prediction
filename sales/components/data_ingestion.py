@@ -6,7 +6,7 @@ import os, sys
 from pandas import DataFrame
 from sklearn.model_selection import train_test_split
 
-from sales.constant.training_pipeline import TARGET_COLUMNS
+from sales.constant.training_pipeline import TARGET_COLUMN
 from sales.data_access.sales_data import SalesData
 from sales.utils.main_utils import read_yaml_file
 from sales.constant.training_pipeline import SCHEMA_FILE_PATH
@@ -78,7 +78,6 @@ class DataIngestion:
         try:
             dataframe = self.export_data_into_feature_store()
 
-            
             self.split_data_as_train_test(dataframe=dataframe)
             data_ingestion_artifact = DataIngestionArtifact(
                 trained_file_path=self.data_ingestion_config.training_file_path,

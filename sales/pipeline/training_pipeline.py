@@ -2,14 +2,21 @@ from sales.entity.config_entity import (
     TrainingPipelineConfig,
     DataIngestionConfig,
     DataValidationConfig,
+    DataTransformationConfig,
 )
-from sales.entity.artifact_entity import DataIngestionArtifact, DataValidationArtifact
+from sales.entity.artifact_entity import (
+    DataIngestionArtifact,
+    DataValidationArtifact,
+    DataTransformationArtifact,
+)
+
 
 from sales.exception import SalesException
 import sys, os
 from sales.logger import logging
 from sales.components.data_ingestion import DataIngestion
 from sales.components.data_validation import DataValidation
+from sales.components.data_transformation import DataTransformation
 
 
 class TrainPipeline:
@@ -54,33 +61,42 @@ class TrainPipeline:
         except Exception as e:
             raise SalesException(e, sys)
 
-    """
-    # def start_data_transformation(self):
-    #     try:
-    #         pass
-    #     except Exception as e:
-    #         raise SalesException(e,sys)
-        
-    # def start_model_trainer(self):
-    #     try:
-    #         pass
-    #     except Exception as e:
-    #         raise SalesException(e,sys)
-        
-        
-    # def start_model_evaluation(self):
-    #     try:
-    #         pass
-    #     except Exception as e:
+    def start_data_transformation(
+        self, data_validation_artifact: DataValidationArtifact
+    ):
 
-    
-    # def start_model_pusher(self):
-    #     try:
-    #         pass
-    #     except Exception as e:
-    #         raise SalesException(e,sys)    
-    
-    """
+        try:
+            data_transformation_config = DataTransformationConfig(
+                training_pipeline_config=self.training_pipeline_config
+            )
+            data_transformation = DataTransformation(
+                data_validation_artifact=data_validation_artifact,
+                data_transformation_config=data_transformation_config,
+            )
+            data_transformation_artifact = (
+                data_transformation.initiate_data_transformation()
+            )
+            return data_transformation_artifact
+        except Exception as e:
+            raise SalesException(e, sys)
+
+    def start_model_trainer(self):
+        try:
+            pass
+        except Exception as e:
+            raise SalesException(e, sys)
+
+    def start_model_evaluation(self):
+        try:
+            pass
+        except Exception as e:
+            raise SalesException(e, sys)
+
+    def start_model_pusher(self):
+        try:
+            pass
+        except Exception as e:
+            raise SalesException(e, sys)
 
     def run_pipeline(self):
         try:
@@ -88,5 +104,9 @@ class TrainPipeline:
             data_validation_artifact = self.start_data_validation(
                 data_ingestion_artifact=data_ingestion_artifact
             )
+            data_transformation_artifact = self.start_data_transformation(
+                data_validation_artifact=data_validation_artifact
+            )
+
         except Exception as e:
             raise SalesException(e, sys)

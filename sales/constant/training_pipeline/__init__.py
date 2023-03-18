@@ -4,7 +4,7 @@ from sales.constant.s3_bucket import TRAINING_BUCKET_NAME
 
 # Defining common constant for our training pipeline
 
-TARGET_COLUMNS: str = "Item_Outlet_Sales"
+TARGET_COLUMN: str = "Item_Outlet_Sales"
 PIPELINE_NAME: str = "sales"
 ARTIFACT_DIR: str = "artifact"
 FILE_NAME: str = "sales.csv"
@@ -36,3 +36,9 @@ DATA_VALIDATION_VALID_DIR: str = "validated"
 DATA_VALIDATION_INVALID_DIR: str = "invalid"
 DATA_VALIDATION_DRIFT_REPORT_DIR: str = "drift_report_dir"
 DATA_VALIDATION_DRIFT_REPORT_FILE_NAME: str = "report.yaml"
+
+# Data Transformation related Constant
+
+DATA_TRANSFORMATION_DIR_NAME: str = "data_transformation"
+DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR: str = "transformed"
+DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR: str = "transformed_object"
