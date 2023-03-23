@@ -12,6 +12,7 @@ FILE_NAME: str = "sales.csv"
 
 TRAIN_FILE_NAME: str = "train.csv"
 TEST_FILE_NAME: str = "test.csv"
+SAVED_MODEL_DIR = os.path.join("saved_models")
 
 
 PREPROCESSING_OBJECT_FILE_NAME = "preprocessing.pkl"
@@ -42,3 +43,16 @@ DATA_VALIDATION_DRIFT_REPORT_FILE_NAME: str = "report.yaml"
 DATA_TRANSFORMATION_DIR_NAME: str = "data_transformation"
 DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR: str = "transformed"
 DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR: str = "transformed_object"
+
+# Model Trainer related constant
+MODEL_TRAINER_DIR_NAME: str = "model_trainer"
+MODEL_TRAINER_TRAINED_MODEL_DIR: str = "trainer_model"
+MODEL_TRAINER_TRAINED_MODEL_NAME: str = "model.pkl"
+MODEL_TRAINER_EXPECTED_SCORE: float = 0.6
+MODEL_TRAINER_OVER_FITTING_UNDER_FITTING_THRESHOLD: float = 0.05
+
+# model Evaluation related constant
+
+MODEL_EVALUATION_DIR_NAME: str = "model_evaluation"
+MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE: float = 0.02
+MODEL_EVALUATION_REPORT_NAME = "report.yaml"
