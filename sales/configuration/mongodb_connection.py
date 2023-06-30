@@ -1,4 +1,4 @@
-import pymongo
+from pymongo.mongo_client import MongoClient
 from sales.constant.database import DATABASE_NAME
 
 from sales.constant.env_variable import MONGODB_URL_KEY
@@ -7,8 +7,6 @@ from sales.exception import SalesException
 import certifi
 import os, sys
 from dotenv import load_dotenv
-
-ca = certifi.where()
 
 
 class MongoDBClient:
@@ -20,7 +18,9 @@ class MongoDBClient:
             if MongoDBClient.client is None:
                 mongo_db_url = os.getenv(MONGODB_URL_KEY)
 
-                MongoDBClient.client = pymongo.MongoClient(mongo_db_url, tlsCAFile=ca)
+                MongoDBClient.client = MongoClient(
+                    mongo_db_url, tlsCAFile=certifi.where()
+                )
             self.client = MongoDBClient.client
             self.database = self.client[database_name]
             self.database_name = database_name

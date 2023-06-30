@@ -15,6 +15,7 @@ columns:
 
 drop_columns:
     - Item_Identifier
+    - Item_Outlet_Sales
 
 
 numerical_columns:

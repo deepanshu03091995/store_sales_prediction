@@ -1,6 +1,12 @@
 from sales.entity.artifact_entity import RegressionMetricArtifact
 from sales.exception import SalesException
-from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+from sklearn.metrics import (
+    mean_squared_error,
+    mean_absolute_error,
+    r2_score,
+)
+
+
 import os, sys
 
 

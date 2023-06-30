@@ -14,7 +14,7 @@ TRAIN_FILE_NAME: str = "train.csv"
 TEST_FILE_NAME: str = "test.csv"
 SAVED_MODEL_DIR = os.path.join("saved_models")
 
-
+PREPROCESSOR_OBJECT_DIR = os.path.join("preprocessor", "preprocessing.pkl")
 PREPROCESSING_OBJECT_FILE_NAME = "preprocessing.pkl"
 MODEL_FILE_NAME = "model.pkl"
 SCHEMA_FILE_PATH = os.path.join("config", "schema.yaml")

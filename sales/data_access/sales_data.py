@@ -26,9 +26,6 @@ class SalesData:
         self, collection_name: str, database_name: Optional[str] = None
     ) -> pd.DataFrame:
         try:
-            """
-            #export entire collection as dataframe return pd.DataFrame of collection
-            """
             if database_name is None:
                 collection = self.mongo_client.database[collection_name]
             else:

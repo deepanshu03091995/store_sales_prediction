@@ -71,7 +71,7 @@ class ModelEvaluation:
             trained_metric = get_regression_score(y_true, y_trained_pred)
             latest_metric = get_regression_score(y_true, y_latest_pred)
 
-            improved_accuracy = trained_metric.f1_score - latest_metric.f1_score
+            improved_accuracy = trained_metric.r2_score - latest_metric.r2_score
             if self.model_eval_config.change_threshold < improved_accuracy:
                 # 0.02 < 0.03
                 is_model_accepted = True

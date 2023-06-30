@@ -32,7 +32,8 @@ class ModelPusher:
         try:
             trained_model_path = self.model_eval_artifact.trained_model_path
 
-            # Creating model pusher dir to save model
+            """Creating model pusher dir to save model"""
+
             model_file_path = self.model_pusher_config.model_file_path
             os.makedirs(os.path.dirname(model_file_path), exist_ok=True)
             shutil.copy(src=trained_model_path, dst=model_file_path)

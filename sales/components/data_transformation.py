@@ -1,5 +1,5 @@
 import sys
-
+import shutil
 import numpy as np
 import pandas as pd
 
@@ -15,7 +15,7 @@ from sales.exception import SalesException
 from sales.constant.training_pipeline import SCHEMA_FILE_PATH
 from sklearn.compose import ColumnTransformer
 
-
+from sales.constant.training_pipeline import PREPROCESSOR_OBJECT_DIR
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
@@ -102,14 +102,40 @@ class DataTransformation:
             preprocessor_object = self.get_data_transformer_object()
             logging.info("Read train and test data completed")
 
+            save_object(PREPROCESSOR_OBJECT_DIR, preprocessor_object)
+
             logging.info("Obtaining preprocessing object")
 
             # training dataframe
-            input_feature_train_df = train_df.drop(columns=[TARGET_COLUMN], axis=1)
+            input_feature_train_df = train_df.drop(
+                list(self._schema_config["drop_columns"]), axis=1
+            )
+            input_feature_train_df.replace(
+                {
+                    "Item_Fat_Content": {
+                        "low fat": "Low Fat",
+                        "LF": "Low Fat",
+                        "reg": "Regular",
+                    }
+                },
+                inplace=True,
+            )
             target_feature_train_df = train_df[TARGET_COLUMN]
 
             # testing dataframe
-            input_feature_test_df = test_df.drop(columns=[TARGET_COLUMN], axis=1)
+            input_feature_test_df = test_df.drop(
+                list(self._schema_config["drop_columns"]), axis=1
+            )
+            input_feature_test_df.replace(
+                {
+                    "Item_Fat_Content": {
+                        "low fat": "Low Fat",
+                        "LF": "Low Fat",
+                        "reg": "Regular",
+                    }
+                },
+                inplace=True,
+            )
             target_feature_test_df = test_df[TARGET_COLUMN]
 
             input_feature_train_arr = preprocessor_object.fit_transform(
