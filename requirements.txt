@@ -10,7 +10,7 @@ python-dotenv
 scipy
 scikit-learn
 xgboost
-fastapi
+
 uvicorn[standard]
 certifi
 flask

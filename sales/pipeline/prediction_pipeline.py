@@ -2,27 +2,29 @@ import sys
 import pandas as pd
 from sales.exception import SalesException
 from sales.utils.main_utils import load_object
-
-# class PredictPipeline:
-#     def __init__(self):
-#         pass
-
-#     def predict(self, features):
-#         try:
-#             model_path = os.path.join("artifacts", "model.pkl")
-#             preprocessor_path = os.path.join("artifacts", "preprocessor.pkl")
-
-#             model = load_object(file_path=model_path)
-#             preprocessor = load_object(file_path=preprocessor_path)
-#             data_scaled = preprocessor.transform(features)
-#             preds = model.predict(data_scaled)
-#             return preds
-
-#         except Exception as e:
-#             raise SaleException(e, sys)
+from sales.constant.training_pipeline import PREPROCESSOR_OBJECT_DIR
+from sales.constant.training_pipeline import SAVED_MODEL_DIR
 
 
-class SaleData:
+
+class PredictPipeline:
+    def __init__(self):
+        pass
+
+    def predict(self,features):
+        try:
+            
+            model = load_object(file_path=SAVED_MODEL_DIR)
+            preprocessor = load_object(file_path=PREPROCESSOR_OBJECT_DIR)
+            data_scaled = preprocessor.transform(features)
+            preds = model.predict(data_scaled)
+            return preds
+
+        except Exception as e:
+            raise SalesException(e, sys)
+
+
+class CustomData:
     def __init__(
         self,
         item_weight: float,
@@ -60,7 +62,7 @@ class SaleData:
                 "outlet_establishment_year": [self.outlet_establishment_year],
                 "outlet_size": [self.outlet_size],
                 "outlet_location_type": [self.outlet_location_type],
-                "outlet_type": [self.outlet_type],
+                "outlet_type": [self.outlet_type]
             }
 
             return pd.DataFrame(custom_data_input_dict)
