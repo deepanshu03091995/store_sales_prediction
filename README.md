@@ -1,5 +1,5 @@
 # store_sales_prediction
-
+# Deployed Link : http://20.193.148.154/
 
 ### Problem Statement
 Nowadays, shopping malls and Big Marts keep track of individual item sales data in
