@@ -1,6 +1,6 @@
 # store_sales_prediction
 
-
+# Deployed_link - http://20.193.148.154/
 ### Problem Statement
 Nowadays, shopping malls and Big Marts keep track of individual item sales data in
 order to forecast future client demand and adjust inventory management. In a data
